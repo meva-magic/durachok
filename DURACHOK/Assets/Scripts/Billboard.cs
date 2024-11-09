@@ -4,26 +4,21 @@ using UnityEngine;
 
 public class Billboard : MonoBehaviour
 {
-    private Transform target;
+    [SerializeField] private Camera target;
     [SerializeField] private bool canLookVertically;
 
-
-    private void Start()
-    {
-        target = FindFirstObjectByType<PlayerMove>().transform;
-    }
 
     private void Update()
     {
         if(canLookVertically)
         {
-            transform.LookAt(target);
+            transform.LookAt(target.transform);
         }
 
         else
         {
-            Vector3 modifiedTarget = target.position;
-            modifiedTarget.y = target.position.y;
+            Vector3 modifiedTarget = target.transform.position;
+            modifiedTarget.y = target.transform.position.y;
             transform.LookAt(modifiedTarget);
         }
     }
