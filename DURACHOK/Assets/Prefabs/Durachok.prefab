@@ -9,14 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1565202109315653487}
-  - component: {fileID: 354476943546875332}
+  - component: {fileID: 6525940347648923621}
   - component: {fileID: 2603257130000017913}
   - component: {fileID: 8968896585801702378}
   - component: {fileID: 5650199688944994875}
   - component: {fileID: 1944818841117104400}
   m_Layer: 0
   m_Name: Durachok
-  m_TagString: Untagged
+  m_TagString: Durachok
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36,7 +36,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &354476943546875332
+--- !u!114 &6525940347648923621
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -66,9 +66,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  followDistance: 2
+  followDistance: 1
   followSpeed: 5
-  levitateHeight: 1
+  levitateHeight: 0.5
   activationRadius: 3
 --- !u!33 &8968896585801702378
 MeshFilter:
