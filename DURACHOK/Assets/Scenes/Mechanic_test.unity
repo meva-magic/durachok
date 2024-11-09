@@ -600,6 +600,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 828825400}
+    - target: {fileID: 2603257130000017913, guid: 68f8bfab60a528a4da41b0148f2cd3be, type: 3}
+      propertyPath: followDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8667852885693702718, guid: 68f8bfab60a528a4da41b0148f2cd3be, type: 3}
       propertyPath: m_Name
       value: Durachok
