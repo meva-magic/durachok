@@ -4,16 +4,15 @@ using System.Collections;
 public class DurachokAbsorption : MonoBehaviour
 {
     public GameObject timer;
-    public Transform player;               
-    public float arcHeight = 2f;           
+    public Transform player;
+    public float arcHeight = 2f;
     public float invisibleDuration = 5f;
     public float timeLeft;
-    private Vector3 originalScale;         
-    private Collider durachokCollider;    
+    private Vector3 originalScale;
+    private Collider durachokCollider;
 
-    public bool isInvisible = false;       
-
-    public float respawnRadius = 2f;     
+    public bool isInvisible = false;
+    public float respawnRadius = 2f;
 
     public static DurachokAbsorption instance;
 
@@ -30,6 +29,7 @@ public class DurachokAbsorption : MonoBehaviour
 
     public IEnumerator AbsorbIntoPlayer()
     {
+        // Отключаем коллайдер на время способности
         if (durachokCollider != null)
         {
             durachokCollider.enabled = false;
@@ -38,7 +38,7 @@ public class DurachokAbsorption : MonoBehaviour
         Vector3 startPosition = transform.position;
         Vector3 endPosition = player.position;
         Vector3 startScale = transform.localScale;
-        Vector3 endScale = Vector3.zero; 
+        Vector3 endScale = Vector3.zero;
 
         float time = 0f;
         while (time < 1f)
@@ -52,6 +52,7 @@ public class DurachokAbsorption : MonoBehaviour
             yield return null;
         }
 
+        // Активация таймера и переход в невидимость
         timer.SetActive(true);
         timeLeft = invisibleDuration;
         isInvisible = true;
@@ -66,17 +67,14 @@ public class DurachokAbsorption : MonoBehaviour
             yield return null;
         }
 
-       
+        // Появление рядом с игроком и начало анимации выпрыгивания
         Vector3 randomOffset = new Vector3(Random.Range(-respawnRadius, respawnRadius), 0f, Random.Range(-respawnRadius, respawnRadius));
         Vector3 randomPosition = player.position + randomOffset;
 
-       
         time = 0f;
-        Vector3 exitPosition = randomPosition; 
-
         while (time < 1f)
         {
-            Vector3 arcPosition = Vector3.Lerp(exitPosition, randomPosition, time);
+            Vector3 arcPosition = Vector3.Lerp(randomPosition, player.position + player.forward * respawnRadius, time);
             arcPosition.y += Mathf.Sin(time * Mathf.PI) * arcHeight;
             transform.position = arcPosition;
 
@@ -85,12 +83,13 @@ public class DurachokAbsorption : MonoBehaviour
             yield return null;
         }
 
+        // Включаем коллайдер обратно и выключаем таймер после завершения выпрыгивания
         if (durachokCollider != null)
         {
             durachokCollider.enabled = true;
         }
 
-        timer.SetActive(true);
+        timer.SetActive(false);
         isInvisible = false;
     }
 
