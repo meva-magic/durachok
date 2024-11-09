@@ -8,7 +8,7 @@ public class PlatformButton : MonoBehaviour
     {
         if (platform != null)
         {
-            platform.ToggleMovement();
+            platform.ToggleMovement();  // Вызов переключения платформы
         }
     }
 }

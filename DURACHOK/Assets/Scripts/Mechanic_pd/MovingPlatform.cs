@@ -5,8 +5,8 @@ public class MovingPlatform : MonoBehaviour
     public Transform[] points;  // Точки, между которыми движется платформа
     public float speed = 2f;
     private int targetPointIndex = 0;
-    private bool isMoving = false;
-    private bool isPaused = false;  // Новый флаг для паузы платформы
+    private bool isMoving = false;  // Перемещается ли платформа
+    private bool isPaused = false;  // Флаг для приостановки
 
     private void Update()
     {
@@ -18,14 +18,17 @@ public class MovingPlatform : MonoBehaviour
 
     public void ToggleMovement()
     {
+        // Переключаем платформу между состоянием "движется" и "остановлена"
         if (isMoving)
         {
-            isPaused = true;  // Приостанавливаем платформу
+            // Если платформа движется, останавливаем её
+            isPaused = true;
         }
         else
         {
-            isPaused = false;  // Возобновляем движение платформы
-            isMoving = true;   // Начинаем движение, если еще не началось
+            // Если платформа остановлена, запускаем её движение
+            isPaused = false;
+            isMoving = true; // начинаем движение, если оно не началось
         }
     }
 
