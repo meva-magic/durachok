@@ -6,7 +6,7 @@ public class PlayerMove : MonoBehaviour
 {
     [SerializeField] public float playerSpeed = 10f;
     [SerializeField] private float damping = 5f;
-    [SerializeField] private float gravity = -9.81f;  // Гравитация для игрока
+    [SerializeField] private float gravity = -9.81f;  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
     private CharacterController controller;
     private Vector3 inputVector;
@@ -39,12 +39,12 @@ public class PlayerMove : MonoBehaviour
             Input.GetKey(KeyCode.D))
         {
             inputVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-            inputVector.Normalize();  // Нормализуем движение, чтобы не было ускорения по диагонали
-            inputVector = transform.TransformDirection(inputVector);  // Преобразуем относительно ориентации игрока
+            inputVector.Normalize();
+            inputVector = transform.TransformDirection(inputVector); 
         }
         else
         {
-            inputVector = Vector3.Lerp(inputVector, Vector3.zero, Time.deltaTime * damping);  // Замедление при отсутствии ввода
+            inputVector = Vector3.Lerp(inputVector, Vector3.zero, Time.deltaTime * damping);
         }
 
         movementVector = inputVector * playerSpeed;
@@ -54,17 +54,16 @@ public class PlayerMove : MonoBehaviour
     {
         if (controller.isGrounded)
         {
-            velocity.y = -2f;  // Легкое давление вниз, чтобы игрок не "плавал" в воздухе
+            velocity.y = -2f;
         }
         else
         {
-            velocity.y += gravity * Time.deltaTime;  // Применение гравитации, если игрок в воздухе
+            velocity.y += gravity * Time.deltaTime;
         }
     }
 
     private void MovePlayer()
     {
-        // Объединяем движение и гравитацию
         movementVector.y = velocity.y;
         controller.Move(movementVector * Time.deltaTime);
     }
