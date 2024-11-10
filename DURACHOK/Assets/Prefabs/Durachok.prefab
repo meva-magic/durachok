@@ -152,7 +152,7 @@ Transform:
   m_GameObject: {fileID: 8451240417205603437}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 2.9252124, y: 0.698, z: -0.965}
+  m_LocalPosition: {x: 1.99, y: 0.698, z: 2.63}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -172,11 +172,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  followRadius: 0.27
-  followSpeed: 3
-  levitateHeight: 1
-  activationRadius: 2
-  smoothTime: 0.3
+  followDistance: 0.46
+  heightOffset: 0.7
+  smoothSpeed: 10.99
+  attachRadius: 2
 --- !u!114 &7879464436226062868
 MonoBehaviour:
   m_ObjectHideFlags: 0

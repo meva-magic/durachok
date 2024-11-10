@@ -2,82 +2,60 @@ using UnityEngine;
 
 public class DurachokFollower : MonoBehaviour
 {
-    [SerializeField] private Transform player;               // Ссылка на игрока
-    [SerializeField] private float followRadius = 1f;        // Радиус следования
-    [SerializeField] private float followSpeed = 2f;         // Скорость следования
-    [SerializeField] private float levitateHeight = 1f;      // Высота левитации
-    [SerializeField] private float activationRadius = 5f;    // Радиус для способности
-    [SerializeField] private float smoothTime = 0.3f;        // Время для сглаживания
+    public Transform player; // Ссылка на объект игрока
+    public float followDistance = 2.0f; // Расстояние от игрока, где Durachok будет находиться
+    public float heightOffset = 1.0f; // Высотный сдвиг относительно игрока
+    public float smoothSpeed = 5.0f; // Плавность движения
 
-    private bool isFollowing = false;        // Следует ли за игроком
-    private bool isAbsorbed = false;         // Находится ли внутри игрока
+    public float attachRadius = 2.0f; // Радиус, на котором можно активировать привязку
 
-    private DurachokAbsorption absorptionScript;
-    private Collider durachokCollider;
-    private Vector3 velocity = Vector3.zero; // Переменная для SmoothDamp
+    private Rigidbody rb; // Rigidbody для плавности движения
+    private Vector3 targetPosition; // Целевая позиция для движения
+    private bool isAttached = false; // Флаг привязки
+    private bool wasSpacePressed = false; // Флаг для отслеживания состояния пробела
 
-    private void Start()
+    void Start()
     {
-        if (player == null)
-        {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
-        }
-
-        // Получаем ссылку на компонент DurachokAbsorption
-        absorptionScript = GetComponent<DurachokAbsorption>();
-        absorptionScript.player = player;
-
-        // Получаем коллайдер для отключения при привязке
-        durachokCollider = GetComponent<Collider>();
+        rb = GetComponent<Rigidbody>();
     }
 
-    private void Update()
+    void Update()
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-
-        // Включаем следование при нажатии на пробел, если в радиусе
-        if (Input.GetKeyDown(KeyCode.Space) && distanceToPlayer <= activationRadius)
+        // Проверка, если пробел удерживается
+        if (Input.GetKey(KeyCode.Space))
         {
-            isFollowing = true;
-            durachokCollider.enabled = false; // Отключаем коллайдер при привязке к игроку
+            // Если пробел был только что нажат и Durachok в пределах радиуса активации
+            if (!wasSpacePressed && Vector3.Distance(transform.position, player.position) <= attachRadius)
+            {
+                isAttached = true; // Устанавливаем привязку активной
+            }
+
+            // Обновляем флаг, что пробел удерживается
+            wasSpacePressed = true;
+        }
+        else
+        {
+            // Если пробел отпущен, разрываем привязку
+            isAttached = false;
+            wasSpacePressed = false;
         }
 
-        // Останавливаем следование, когда пробел отпускается
-        if (Input.GetKeyUp(KeyCode.Space))
+        // Если привязка активирована, вычисляем целевую позицию
+        if (isAttached)
         {
-            isFollowing = false;
-            durachokCollider.enabled = true; // Включаем коллайдер при остановке следования
+            // Вычисление позиции перед и чуть правее игрока
+            Vector3 forwardDirection = player.forward;
+            Vector3 rightDirection = player.right;
+
+            // Целевая позиция с высотой, смещенная от направления игрока
+            targetPosition = player.position + forwardDirection * followDistance + rightDirection * followDistance / 2;
+            targetPosition.y = player.position.y + heightOffset; // Установить высоту в зависимости от игрока
+
+            // Плавное движение Durachok к целевой позиции
+            Vector3 smoothPosition = Vector3.Lerp(transform.position, targetPosition, smoothSpeed * Time.deltaTime);
+
+            // Применение плавного движения к Rigidbody
+            rb.MovePosition(smoothPosition);
         }
-
-        // Запуск способности поглощения при нажатии Enter, если в радиусе
-        if (Input.GetKeyDown(KeyCode.Return) && distanceToPlayer <= activationRadius && !isAbsorbed)
-        {
-            isAbsorbed = true;
-            durachokCollider.enabled = false; // Отключаем коллайдер при поглощении
-            StartCoroutine(absorptionScript.AbsorbIntoPlayer());
-            Invoke(nameof(ResetAbsorbedStatus), absorptionScript.invisibleDuration + 1f);
-        }
-
-        // Следование за игроком, если активировано и не поглощен
-        if (isFollowing && !isAbsorbed && !absorptionScript.isInvisible)
-        {
-            FollowPlayer();
-        }
-    }
-
-    private void FollowPlayer()
-    {
-        // Рассчитываем точку на заданном радиусе (чуть правее и впереди игрока)
-        Vector3 targetPosition = player.position + (player.forward + player.right).normalized * followRadius;
-        targetPosition.y += levitateHeight; // Поднимаем позицию для эффекта левитации
-
-        // Плавно перемещаем объект к целевой позиции
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
-    }
-
-    private void ResetAbsorbedStatus()
-    {
-        isAbsorbed = false;
-        durachokCollider.enabled = true; // Включаем коллайдер после завершения поглощения
     }
 }
