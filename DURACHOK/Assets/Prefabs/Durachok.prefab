@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 8968896585801702378}
   - component: {fileID: 5650199688944994875}
   - component: {fileID: 1944818841117104400}
-  m_Layer: 0
+  - component: {fileID: 8602357524821151082}
+  m_Layer: 3
   m_Name: Durachok
   m_TagString: Durachok
   m_Icon: {fileID: 0}
@@ -30,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 8667852885693702718}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.53, y: 0.663, z: 3.34}
+  m_LocalPosition: {x: -2.72, y: 0.663, z: 3.79}
   m_LocalScale: {x: 0.3610607, y: 0.3610607, z: 0.3610607}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -48,8 +49,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b17c141d0aa16438cf9184aa02ac3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: {fileID: 4076871110702589714, guid: 2c8b56598b1c8f14fb128774a14e71bb, type: 3}
-  player: {fileID: 3767712677292143354, guid: 3387ddf11a936ef48adabeea4751bde4, type: 3}
+  timer: {fileID: 0}
+  player: {fileID: 0}
   arcHeight: 2
   invisibleDuration: 5
   timeLeft: 0
@@ -67,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0f9dec47f2d4964bb6043b37fd9c453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 3767712677292143354, guid: 3387ddf11a936ef48adabeea4751bde4, type: 3}
+  player: {fileID: 0}
   followDistance: 1
   followSpeed: 5
   levitateHeight: 0.5
@@ -146,3 +147,30 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &8602357524821151082
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8667852885693702718}
+  serializedVersion: 4
+  m_Mass: 1.59
+  m_Drag: 1.07
+  m_AngularDrag: 0.39
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
