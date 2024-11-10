@@ -821,7 +821,9 @@ MonoBehaviour:
   points:
   - {fileID: 1759649457}
   - {fileID: 1273486670}
-  speed: 2
+  maxSpeed: 10
+  minSpeed: 0.5
+  slowdownDistance: 1
 --- !u!1 &1869574158
 GameObject:
   m_ObjectHideFlags: 0

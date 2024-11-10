@@ -3,14 +3,16 @@ using UnityEngine;
 public class MovingPlatform : MonoBehaviour
 {
     public Transform[] points;  // Точки, между которыми движется платформа
-    public float speed = 2f;
+    public float maxSpeed = 2f;  // Максимальная скорость платформы
+    public float minSpeed = 0.5f;  // Минимальная скорость платформы при приближении к точке
+    public float slowdownDistance = 1f;  // Дистанция, на которой начнется замедление
+
     private int targetPointIndex = 0;
-    private bool isMoving = false;  // Перемещается ли платформа
-    private bool isPaused = false;  // Флаг для приостановки
+    private bool isMoving = false;
 
     private void Update()
     {
-        if (isMoving && !isPaused)
+        if (isMoving)
         {
             MoveTowardsTarget();
         }
@@ -18,28 +20,24 @@ public class MovingPlatform : MonoBehaviour
 
     public void ToggleMovement()
     {
-        // Переключаем платформу между состоянием "движется" и "остановлена"
-        if (isMoving)
-        {
-            // Если платформа движется, останавливаем её
-            isPaused = true;
-        }
-        else
-        {
-            // Если платформа остановлена, запускаем её движение
-            isPaused = false;
-            isMoving = true; // начинаем движение, если оно не началось
-        }
+        // Переключаем состояние движения
+        isMoving = !isMoving;
     }
 
     private void MoveTowardsTarget()
     {
-        if (points.Length < 2) return;  // Если точек меньше двух, не продолжаем
+        if (points.Length < 2) return;
 
         Transform targetPoint = points[targetPointIndex];
+        float distanceToTarget = Vector3.Distance(transform.position, targetPoint.position);
+
+        // Рассчитываем текущую скорость на основе расстояния до цели
+        float speed = Mathf.Lerp(minSpeed, maxSpeed, distanceToTarget / slowdownDistance);
+        speed = Mathf.Clamp(speed, minSpeed, maxSpeed);
+
         transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, speed * Time.deltaTime);
 
-        if (Vector3.Distance(transform.position, targetPoint.position) < 0.1f)
+        if (distanceToTarget < 0.1f)
         {
             // Переход к следующей точке
             targetPointIndex = (targetPointIndex + 1) % points.Length;
