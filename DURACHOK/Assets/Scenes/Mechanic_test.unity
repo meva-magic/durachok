@@ -1128,10 +1128,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1161762904512872304, guid: 3387ddf11a936ef48adabeea4751bde4, type: 3}
-      propertyPath: damping
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 3767712677292143354, guid: 3387ddf11a936ef48adabeea4751bde4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.71
@@ -1460,38 +1456,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &1872384670 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8667852885693702718, guid: 68f8bfab60a528a4da41b0148f2cd3be, type: 3}
-  m_PrefabInstance: {fileID: 3208823856891188133}
-  m_PrefabAsset: {fileID: 0}
---- !u!54 &1872384677
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1872384670}
-  serializedVersion: 4
-  m_Mass: 1.59
-  m_Drag: 1.07
-  m_AngularDrag: 0.39
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1001 &3208823856891188133
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1540,18 +1504,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1944818841117104400, guid: 68f8bfab60a528a4da41b0148f2cd3be, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2603257130000017913, guid: 68f8bfab60a528a4da41b0148f2cd3be, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 828825400}
-    - target: {fileID: 2603257130000017913, guid: 68f8bfab60a528a4da41b0148f2cd3be, type: 3}
-      propertyPath: followDistance
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6525940347648923621, guid: 68f8bfab60a528a4da41b0148f2cd3be, type: 3}
       propertyPath: timer
       value: 
@@ -1564,17 +1520,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Durachok
       objectReference: {fileID: 0}
-    - target: {fileID: 8667852885693702718, guid: 68f8bfab60a528a4da41b0148f2cd3be, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8667852885693702718, guid: 68f8bfab60a528a4da41b0148f2cd3be, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1872384677}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68f8bfab60a528a4da41b0148f2cd3be, type: 3}
 --- !u!1001 &5073231225207346058
 PrefabInstance:
