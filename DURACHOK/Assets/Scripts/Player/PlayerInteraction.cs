@@ -13,11 +13,19 @@ public class PlayerInteraction : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit, interactionRange))
             {
-                // Проверка, если объект, с которым взаимодействуем, имеет нужный компонент
+                // Проверка для PlatformButton
                 PlatformButton platformButton = hit.collider.GetComponent<PlatformButton>();
                 if (platformButton != null)
                 {
                     platformButton.TogglePlatform();
+                    return;  // Если это PlatformButton, сразу выполняем действие и выходим из метода
+                }
+
+                // Проверка для DoorButton
+                DoorButton doorButton = hit.collider.GetComponent<DoorButton>();
+                if (doorButton != null)
+                {
+                    doorButton.ToggleDoor();
                 }
             }
         }
