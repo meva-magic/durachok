@@ -30,18 +30,18 @@ public class DurachokFollower : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
         // Активация следования при удержании Enter и нахождении в радиусе
-        if (Input.GetKeyDown(KeyCode.Return) && distanceToPlayer <= activationRadius)
+        if (Input.GetKeyDown(KeyCode.Space) && distanceToPlayer <= activationRadius)
         {
             isFollowing = true;
         }
 
-        if (Input.GetKeyUp(KeyCode.Return))
+        if (Input.GetKeyUp(KeyCode.Space))
         {
             isFollowing = false;
         }
 
         // Активация способности поглощения при нажатии Space и нахождении в радиусе
-        if (Input.GetKeyDown(KeyCode.Space) && distanceToPlayer <= activationRadius && !isAbsorbed)
+        if (Input.GetKeyDown(KeyCode.Return) && distanceToPlayer <= activationRadius && !isAbsorbed)
         {
             isAbsorbed = true;
             StartCoroutine(absorptionScript.AbsorbIntoPlayer());
@@ -53,8 +53,9 @@ public class DurachokFollower : MonoBehaviour
         {
             Vector3 targetPosition = player.position - player.forward * followDistance;
             targetPosition.y += levitateHeight;
-            transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, followSpeed * Time.deltaTime);
         }
+
     }
 
     void ResetAbsorbedStatus()
