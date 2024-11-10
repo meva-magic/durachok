@@ -7,11 +7,15 @@ public class DurachokFollower : MonoBehaviour
     public float followSpeed = 2f;         // Скорость следования
     public float levitateHeight = 1f;      // Высота левитации
     public float activationRadius = 5f;    // Радиус для способности
+    public float smoothTime = 0.3f;        // Время для сглаживания
 
     private bool isFollowing = false;      // Следует ли за игроком
     private bool isAbsorbed = false;       // Находится ли внутри игрока
 
     private DurachokAbsorption absorptionScript;
+
+    // Для сглаживания
+    private Vector3 velocity = Vector3.zero;
 
     void Start()
     {
@@ -51,11 +55,13 @@ public class DurachokFollower : MonoBehaviour
         // Следование за игроком, если не в статусе невидимости и не поглощен
         if (isFollowing && !isAbsorbed && !absorptionScript.isInvisible)
         {
-            Vector3 targetPosition = player.position - player.forward * followDistance;
-            targetPosition.y += levitateHeight;
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, followSpeed * Time.deltaTime);
-        }
+            // Рассчитываем позицию чуть правее и впереди игрока
+            Vector3 targetPosition = player.position + player.forward * followDistance + player.right * 1f; // 1f - смещение вправо
+            targetPosition.y += levitateHeight; // Добавляем высоту левитации
 
+            // Используем Lerp для плавного движения
+            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+        }
     }
 
     void ResetAbsorbedStatus()
