@@ -40,13 +40,13 @@ public class DurachokAbsorption : MonoBehaviour
         Vector3 startScale = transform.localScale;
         Vector3 endScale = Vector3.zero;
 
+        // Анимация поглощения внутрь игрока
         float time = 0f;
         while (time < 1f)
         {
             Vector3 arcPosition = Vector3.Lerp(startPosition, endPosition, time);
             arcPosition.y += Mathf.Sin(time * Mathf.PI) * arcHeight;
             transform.position = arcPosition;
-
             transform.localScale = Vector3.Lerp(startScale, endScale, time);
             time += Time.deltaTime;
             yield return null;
@@ -67,23 +67,29 @@ public class DurachokAbsorption : MonoBehaviour
             yield return null;
         }
 
-        // Появление рядом с игроком и начало анимации выпрыгивания
-        Vector3 randomOffset = new Vector3(Random.Range(-respawnRadius, respawnRadius), 0f, Random.Range(-respawnRadius, respawnRadius));
-        Vector3 randomPosition = player.position + randomOffset;
+        // Появление рядом с игроком
+        Vector3 randomOffset = new Vector3(
+            Random.Range(-respawnRadius, respawnRadius),
+            0f,
+            Random.Range(-respawnRadius, respawnRadius)
+        );
+        Vector3 spawnPosition = player.position + randomOffset;
 
         time = 0f;
+        transform.localScale = endScale;
+
+        // Выпрыгивание из игрока на случайное расстояние
         while (time < 1f)
         {
-            Vector3 arcPosition = Vector3.Lerp(randomPosition, player.position + player.forward * respawnRadius, time);
+            Vector3 arcPosition = Vector3.Lerp(player.position, spawnPosition, time);
             arcPosition.y += Mathf.Sin(time * Mathf.PI) * arcHeight;
             transform.position = arcPosition;
-
             transform.localScale = Vector3.Lerp(endScale, originalScale, time);
             time += Time.deltaTime;
             yield return null;
         }
 
-        // Включаем коллайдер обратно и выключаем таймер после завершения выпрыгивания
+        // Включаем коллайдер и выключаем таймер
         if (durachokCollider != null)
         {
             durachokCollider.enabled = true;

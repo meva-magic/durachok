@@ -1,17 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] public float playerSpeed = 2.5f;
+    [SerializeField] private float playerSpeed = 2.5f;
     [SerializeField] private float turnSpeed = 1.5f;
     [SerializeField] private float damping = 1.5f;
-
     [SerializeField] private CharacterController controller;
 
     private Vector3 inputVector;
     private Vector3 movementVector;
+    private Transform cameraTransform; // —сылка на камеру
     public static PlayerController instance;
 
     private void Awake()
@@ -22,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         controller = GetComponent<CharacterController>();
+        cameraTransform = Camera.main.transform; // ѕолучаем основную камеру
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -37,10 +36,21 @@ public class PlayerController : MonoBehaviour
     {
         inputVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         inputVector.Normalize();
-        
+
         if (inputVector.magnitude >= 0.1f)
         {
-            movementVector = inputVector * playerSpeed;
+            // ѕреобразуем ввод в локальные координаты камеры
+            Vector3 forward = cameraTransform.forward;
+            Vector3 right = cameraTransform.right;
+
+            // »гнорируем вертикальную составл€ющую (y) дл€ управлени€ на плоскости
+            forward.y = 0f;
+            right.y = 0f;
+            forward.Normalize();
+            right.Normalize();
+
+            // –ассчитываем направление движени€ на основе камеры
+            movementVector = (forward * inputVector.z + right * inputVector.x) * playerSpeed;
         }
         else
         {
@@ -52,7 +62,8 @@ public class PlayerController : MonoBehaviour
     {
         if (inputVector.magnitude >= 0.1f)
         {
-            float targetAngle = Mathf.Atan2(inputVector.x, inputVector.z) * Mathf.Rad2Deg;
+            // –ассчитываем угол поворота на основе направлени€ движени€
+            float targetAngle = Mathf.Atan2(movementVector.x, movementVector.z) * Mathf.Rad2Deg;
             Quaternion targetRotation = Quaternion.Euler(0f, targetAngle, 0f);
 
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * turnSpeed);
@@ -61,7 +72,7 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
+        // »спользуем movementVector, уже пересчитанный относительно камеры
         controller.Move(movementVector * Time.deltaTime);
     }
 }
-

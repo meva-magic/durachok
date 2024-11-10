@@ -2,22 +2,23 @@ using UnityEngine;
 
 public class IsometricCamera : MonoBehaviour
 {
-    public Transform player;        // Ссылка на игрока
-    public Vector3 offset = new Vector3(10, 10, -10); // Смещение камеры
-    public float smoothSpeed = 0.125f;  // Скорость сглаживания движения камеры
+    [SerializeField] private Transform player;           // Ссылка на игрока
+    [SerializeField] private Vector3 offset = new Vector3(10, 10, -10); // Смещение камеры
+    [SerializeField] private float smoothTime = 0.3f; // Время сглаживания движения камеры
 
-    void LateUpdate()
+    private Vector3 currentVelocity = Vector3.zero;
+
+    private void LateUpdate()
     {
-        // Рассчитываем желаемую позицию камеры
-        Vector3 desiredPosition = player.position + offset;
+        if (player == null) return; // Проверка, что игрок установлен
 
-        // Плавно перемещаем камеру в сторону желаемой позиции
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+        // Рассчитываем целевую позицию с учетом смещения
+        Vector3 targetPosition = player.position + offset;
 
-        // Устанавливаем новую позицию камеры
-        transform.position = smoothedPosition;
+        // Плавно перемещаем камеру с помощью SmoothDamp
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref currentVelocity, smoothTime);
 
-        // Камера всегда смотрит на игрока
-        transform.LookAt(player);
+        // Направляем камеру на игрока
+        transform.LookAt(player.position + Vector3.up * 1.5f); // Чуть выше игрока для лучшего обзора
     }
 }
