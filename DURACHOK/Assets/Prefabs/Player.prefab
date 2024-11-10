@@ -430,7 +430,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 3
-  damping: 2
+  turnSpeed: 1.5
+  damping: 3
+  controller: {fileID: 3194067481952092193}
 --- !u!143 &3194067481952092193
 CharacterController:
   m_ObjectHideFlags: 0

@@ -64,11 +64,13 @@ public class UIManager : MonoBehaviour
     public void EnablePauseMenu()
     {
         pauseMenu.SetActive(true);
+        Time.timeScale = 0;
     }
 
     public void DisablePauseMenu()
     {
         pauseMenu.SetActive(false);
+        Time.timeScale = 1;
     }
 
     public void RestartScene()
