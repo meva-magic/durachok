@@ -1203,9 +1203,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 557301693136326099, guid: e85658348a4bb2646a28862556df5471, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1573648527395643021, guid: e85658348a4bb2646a28862556df5471, type: 3}
       propertyPath: m_Name
       value: MenuScreens
+      objectReference: {fileID: 0}
+    - target: {fileID: 1573648527395643021, guid: e85658348a4bb2646a28862556df5471, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2460205083083951022, guid: e85658348a4bb2646a28862556df5471, type: 3}
       propertyPath: m_Pivot.x
@@ -1285,6 +1293,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2460205083083951022, guid: e85658348a4bb2646a28862556df5471, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6488856964510041572, guid: e85658348a4bb2646a28862556df5471, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
