@@ -16,28 +16,16 @@ public class FallZone : MonoBehaviour
             }
 
             // Определяем новую позицию для игрока в зависимости от чекпоинта
-            GameObject durachok = GameObject.FindWithTag("Durachok");
             Vector3 playerNewPosition;
             if (CheckpointManager.checkpoint == 0)
             {
                 playerNewPosition = new Vector3(-4, 0, 7);
-                if (durachok != null)
-                {
-                    Vector3 durachokNewPosition = new Vector3(-4, 1, 8);
-                    durachok.transform.position = durachokNewPosition;
-                    Debug.Log("Durachok teleported near the player.");
-                }
-
+                Debug.Log("Teleported to checkpoint 0.");
             }
             else if (CheckpointManager.checkpoint == 1)
             {
                 playerNewPosition = new Vector3(-7, 0, 4);
-                if (durachok != null)
-                {
-                    Vector3 durachokNewPosition = new Vector3(-7, 1, 5);
-                    durachok.transform.position = durachokNewPosition;
-                    Debug.Log("Durachok teleported near the player.");
-                }
+                Debug.Log("Teleported to checkpoint 1.");
             }
             else
             {
@@ -46,7 +34,17 @@ public class FallZone : MonoBehaviour
             }
 
             // Телепортируем игрока
+            UIManager.instance.EnabmeDeathMenu();
             other.transform.position = playerNewPosition;
+
+            // Ищем объект Durachok по тегу и телепортируем его рядом с игроком
+            GameObject durachok = GameObject.FindWithTag("Durachok");
+            if (durachok != null)
+            {
+                Vector3 durachokNewPosition = playerNewPosition + new Vector3(1, 0, 0); // Смещаем Durachok на 1 единицу по X
+                durachok.transform.position = durachokNewPosition;
+                Debug.Log("Durachok teleported near the player.");
+            }
 
             // Включаем обратно CharacterController, если он был отключен
             if (controller != null)

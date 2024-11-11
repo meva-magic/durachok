@@ -11,4 +11,5 @@ public class Checkpoint : MonoBehaviour
             CheckpointManager.checkpoint = checkpointNumber;
         }
     }
+
 }

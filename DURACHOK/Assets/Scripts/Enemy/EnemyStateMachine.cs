@@ -16,7 +16,7 @@ public class EnemyStateMachine : MonoBehaviour
     public List<Transform> patrolPoints;
     public float patrolSpeed = 2f;
     public float chaseSpeed = 4f;
-    public float attackRange = 0.5f; 
+    public float attackRange = 0.5f;
     public float sightRange = 5f;
     public float fieldOfViewAngle = 110f;
     public float rotationSpeed = 5f;
@@ -125,6 +125,7 @@ public class EnemyStateMachine : MonoBehaviour
         target.gameObject.SetActive(false);
         Debug.Log("Durachok absorbed! Respawn menu triggered.");
         UIManager.instance.EnabmeDeathMenu();
+
     }
 
     bool CanSeeDurachok()
