@@ -20,6 +20,8 @@ public class PauseButtons : MonoBehaviour
     private void OnRestartButtonClick()
     {
         UIManager.instance.RestartScene();
+        UIManager.instance.DisablePauseMenu();
+        //UIManager.instance.EnableMainMenu();
     }
 
     private void OnContinueButtonClick()
