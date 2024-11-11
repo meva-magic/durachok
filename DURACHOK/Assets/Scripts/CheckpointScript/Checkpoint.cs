@@ -8,8 +8,7 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            CheckpointManager.checkpoint = checkpointNumber;
+            CheckpointManager.SetCheckpoint(checkpointNumber); // Устанавливаем новый чекпоинт
         }
     }
-
 }
