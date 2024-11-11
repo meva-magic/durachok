@@ -7,12 +7,14 @@ public class DurachokAbsorption : MonoBehaviour
     public Transform player;
     public float arcHeight = 2f;
     public float invisibleDuration = 5f;
+    public float activationRadius = 2f; // Радиус активации способности
     public float timeLeft;
     private Vector3 originalScale;
     private Collider durachokCollider;
 
     public bool isInvisible = false;
     public float respawnRadius = 2f;
+    public bool canHide = true; // Флаг для блокировки способности
 
     public static DurachokAbsorption instance;
 
@@ -27,20 +29,34 @@ public class DurachokAbsorption : MonoBehaviour
         durachokCollider = GetComponent<Collider>();
     }
 
+    void Update()
+    {
+        // Проверка нажатия Enter, расстояния и доступности способности
+        if (canHide && Input.GetKeyDown(KeyCode.Return) && Vector3.Distance(transform.position, player.position) <= activationRadius)
+        {
+            StartCoroutine(AbsorbIntoPlayer());
+        }
+    }
+
     public IEnumerator AbsorbIntoPlayer()
     {
-        // Отключаем коллайдер на время способности
+        if (!canHide) yield break; // Прерываем, если способность недоступна
+
+        canHide = false; // Блокируем активацию до выпрыгивания обратно
+
+        // Отключаем коллайдер и делаем невидимым
         if (durachokCollider != null)
         {
             durachokCollider.enabled = false;
         }
+        isInvisible = true;
 
         Vector3 startPosition = transform.position;
         Vector3 endPosition = player.position;
         Vector3 startScale = transform.localScale;
         Vector3 endScale = Vector3.zero;
 
-        // Анимация поглощения внутрь игрока
+        // Анимация прыжка по дуге и уменьшение размера
         float time = 0f;
         while (time < 1f)
         {
@@ -52,12 +68,9 @@ public class DurachokAbsorption : MonoBehaviour
             yield return null;
         }
 
-        // Активация таймера и переход в невидимость
+        // Включаем таймер и удерживаем позицию
         timer.SetActive(true);
         timeLeft = invisibleDuration;
-        isInvisible = true;
-        transform.localScale = endScale;
-
         float invisibleTime = 0f;
         while (invisibleTime < invisibleDuration)
         {
@@ -67,7 +80,7 @@ public class DurachokAbsorption : MonoBehaviour
             yield return null;
         }
 
-        // Появление рядом с игроком
+        // Позиция для вылета
         Vector3 randomOffset = new Vector3(
             Random.Range(-respawnRadius, respawnRadius),
             0f,
@@ -75,10 +88,9 @@ public class DurachokAbsorption : MonoBehaviour
         );
         Vector3 spawnPosition = player.position + randomOffset;
 
+        // Вылет по дуге и восстановление размера
         time = 0f;
         transform.localScale = endScale;
-
-        // Выпрыгивание из игрока на случайное расстояние
         while (time < 1f)
         {
             Vector3 arcPosition = Vector3.Lerp(player.position, spawnPosition, time);
@@ -89,14 +101,14 @@ public class DurachokAbsorption : MonoBehaviour
             yield return null;
         }
 
-        // Включаем коллайдер и выключаем таймер
+        // Включаем коллайдер и отключаем таймер
         if (durachokCollider != null)
         {
             durachokCollider.enabled = true;
         }
-
         timer.SetActive(false);
         isInvisible = false;
+        canHide = true; // Разрешаем активацию
     }
 
     public bool IsInvisible()
