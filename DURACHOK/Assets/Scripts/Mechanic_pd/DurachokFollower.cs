@@ -8,7 +8,7 @@ public class DurachokFollower : MonoBehaviour
     public float smoothSpeed = 5.0f; // ѕлавность движени€
 
     public float attachRadius = 2.0f; // –адиус, на котором можно активировать прив€зку
-    public float rightOffset = 1.5f; // ƒополнительный сдвиг вправо
+    public float rightOffset = 1.5f; // ƒополнительный сдвиг вправо от центра игрока
 
     private Rigidbody rb; // Rigidbody дл€ плавности движени€
     private Vector3 targetPosition; // ÷елева€ позици€ дл€ движени€
@@ -45,12 +45,12 @@ public class DurachokFollower : MonoBehaviour
         // ≈сли прив€зка активирована, вычисл€ем целевую позицию
         if (isAttached)
         {
-            // ¬ычисление позиции перед и еще правее игрока
+            // ¬ычисление позиции перед игроком и чуть правее его центра
             Vector3 forwardDirection = player.forward;
             Vector3 rightDirection = player.right;
 
-            // ÷елева€ позици€ с высотой, смещенна€ от направлени€ игрока
-            targetPosition = player.position + forwardDirection * followDistance + rightDirection * (followDistance + rightOffset);
+            // ÷елева€ позици€ с высотой, смещенна€ от центра игрока вправо
+            targetPosition = player.position + forwardDirection * followDistance + rightDirection * rightOffset;
             targetPosition.y = player.position.y + heightOffset; // ”становить высоту в зависимости от игрока
 
             // ѕлавное движение Durachok к целевой позиции через transform.position
