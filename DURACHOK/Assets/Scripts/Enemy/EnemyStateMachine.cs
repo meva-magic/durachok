@@ -112,7 +112,6 @@ public class EnemyStateMachine : MonoBehaviour
         Vector3 startScale = target.localScale;
         Vector3 endScale = Vector3.zero;
 
-        // Плавное уменьшение и перемещение внутрь противника
         float time = 0f;
         Vector3 targetPosition = transform.position;
         while (time < 1f)
