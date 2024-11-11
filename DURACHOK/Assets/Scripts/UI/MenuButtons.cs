@@ -17,6 +17,7 @@ public class MenuButtons : MonoBehaviour
     private void OnStartButtonClick()
     {
         UIManager.instance.DisableMainMenu();
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void OnExitButtonClick()
