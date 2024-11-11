@@ -16,7 +16,7 @@ public class EnemyStateMachine : MonoBehaviour
     public List<Transform> patrolPoints;
     public float patrolSpeed = 2f;
     public float chaseSpeed = 4f;
-    public float attackRange = 0.5f; // Расстояние для атаки
+    public float attackRange = 0.5f; 
     public float sightRange = 5f;
     public float fieldOfViewAngle = 110f;
     public float rotationSpeed = 5f;
@@ -123,9 +123,8 @@ public class EnemyStateMachine : MonoBehaviour
             yield return null;
         }
 
-        target.gameObject.SetActive(false); // Отключаем объект Дурочка после поглощения
-        Debug.Log("Durachok absorbed! Respawn menu triggered."); // Выводим сообщение в консоль
-        // Здесь можно вызвать функцию для отображения меню респауна
+        target.gameObject.SetActive(false);
+        Debug.Log("Durachok absorbed! Respawn menu triggered."); 
     }
 
     bool CanSeeDurachok()
@@ -140,8 +139,10 @@ public class EnemyStateMachine : MonoBehaviour
             if (angleToDurachok <= fieldOfViewAngle / 2)
             {
                 RaycastHit hit;
-                if (Physics.Raycast(transform.position, directionToDurachok.normalized, out hit, sightRange, playerLayer))
+                // Используем Raycast с проверкой на наличие препятствий
+                if (Physics.Raycast(transform.position, directionToDurachok.normalized, out hit, sightRange))
                 {
+                    // Проверяем, что именно Дурочек является первой пересеченной целью
                     if (hit.transform == target)
                     {
                         return true;
