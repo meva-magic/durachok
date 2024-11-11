@@ -8,6 +8,7 @@ public class DurachokFollower : MonoBehaviour
     public float smoothSpeed = 5.0f; // ѕлавность движени€
 
     public float attachRadius = 2.0f; // –адиус, на котором можно активировать прив€зку
+    public float rightOffset = 1.5f; // ƒополнительный сдвиг вправо
 
     private Rigidbody rb; // Rigidbody дл€ плавности движени€
     private Vector3 targetPosition; // ÷елева€ позици€ дл€ движени€
@@ -17,6 +18,7 @@ public class DurachokFollower : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.isKinematic = true; // ¬ключаем кинематику, чтобы контролировать движение через transform
     }
 
     void Update()
@@ -43,19 +45,16 @@ public class DurachokFollower : MonoBehaviour
         // ≈сли прив€зка активирована, вычисл€ем целевую позицию
         if (isAttached)
         {
-            // ¬ычисление позиции перед и чуть правее игрока
+            // ¬ычисление позиции перед и еще правее игрока
             Vector3 forwardDirection = player.forward;
             Vector3 rightDirection = player.right;
 
             // ÷елева€ позици€ с высотой, смещенна€ от направлени€ игрока
-            targetPosition = player.position + forwardDirection * followDistance + rightDirection * followDistance / 2;
+            targetPosition = player.position + forwardDirection * followDistance + rightDirection * (followDistance + rightOffset);
             targetPosition.y = player.position.y + heightOffset; // ”становить высоту в зависимости от игрока
 
-            // ѕлавное движение Durachok к целевой позиции
-            Vector3 smoothPosition = Vector3.Lerp(transform.position, targetPosition, smoothSpeed * Time.deltaTime);
-
-            // ѕрименение плавного движени€ к Rigidbody
-            rb.MovePosition(smoothPosition);
+            // ѕлавное движение Durachok к целевой позиции через transform.position
+            transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * smoothSpeed);
         }
     }
 }
