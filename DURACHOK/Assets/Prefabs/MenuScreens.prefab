@@ -196,75 +196,63 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 1ca69825baa23cc44bb61d2821434f06, type: 3}
     volume: 1
     pitch: 1
-    loop: 1
+    loop: 0
     source: {fileID: 0}
   - name: WinSound
     clip: {fileID: 8300000, guid: fb3ae7cb31f764b49b9dbd249f13f977, type: 3}
     volume: 0.5
     pitch: 1
-    loop: 1
+    loop: 0
     source: {fileID: 0}
   - name: ButtonPress
     clip: {fileID: 8300000, guid: d6bb8b3bef33c2c4da6ee65eeb936bd9, type: 3}
     volume: 0.5
     pitch: 1
-    loop: 1
+    loop: 0
     source: {fileID: 0}
   - name: PlayerFloat
-    clip: {fileID: 8300000, guid: d24d6c5163c436b45a91ec11b369546b, type: 3}
+    clip: {fileID: 8300000, guid: 4a967557b1fbc7542a385574a82da9c3, type: 3}
     volume: 0.5
-    pitch: 1
+    pitch: 0.3
     loop: 1
     source: {fileID: 0}
   - name: SwalowSound
-    clip: {fileID: 8300000, guid: d24d6c5163c436b45a91ec11b369546b, type: 3}
+    clip: {fileID: 8300000, guid: cd65203722e728b4d9be026aeb9138e7, type: 3}
     volume: 0.5
     pitch: 1
-    loop: 1
+    loop: 0
     source: {fileID: 0}
   - name: SpitSound
-    clip: {fileID: 8300000, guid: d24d6c5163c436b45a91ec11b369546b, type: 3}
+    clip: {fileID: 8300000, guid: 4a967557b1fbc7542a385574a82da9c3, type: 3}
     volume: 0.5
-    pitch: 1
-    loop: 1
+    pitch: 0.7
+    loop: 0
     source: {fileID: 0}
   - name: LeverPress
-    clip: {fileID: 8300000, guid: d24d6c5163c436b45a91ec11b369546b, type: 3}
-    volume: 0.5
+    clip: {fileID: 8300000, guid: 4ef49fe5a3a113e4aa9e837e566665d4, type: 3}
+    volume: 0.9
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: PreasurePlateSound
-    clip: {fileID: 8300000, guid: d24d6c5163c436b45a91ec11b369546b, type: 3}
-    volume: 0.5
+    clip: {fileID: 8300000, guid: d6bb8b3bef33c2c4da6ee65eeb936bd9, type: 3}
+    volume: 0.9
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: PlatformMove
     clip: {fileID: 8300000, guid: d24d6c5163c436b45a91ec11b369546b, type: 3}
-    volume: 0.8
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
-  - name: PlatformStop
-    clip: {fileID: 8300000, guid: d24d6c5163c436b45a91ec11b369546b, type: 3}
-    volume: 0.5
+    volume: 0.75
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: DoorOpen
-    clip: {fileID: 8300000, guid: d24d6c5163c436b45a91ec11b369546b, type: 3}
-    volume: 0.5
+    clip: {fileID: 8300000, guid: 5095f105ae00c024f9898e1dd5eefbf6, type: 3}
+    volume: 0.75
     pitch: 1
-    loop: 1
+    loop: 0
     source: {fileID: 0}
   - name: GateOpen
-    clip: {fileID: 8300000, guid: d24d6c5163c436b45a91ec11b369546b, type: 3}
-    volume: 0.5
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
-  - name: ShadowGroan
     clip: {fileID: 8300000, guid: d24d6c5163c436b45a91ec11b369546b, type: 3}
     volume: 0.5
     pitch: 1
@@ -274,31 +262,31 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: d24d6c5163c436b45a91ec11b369546b, type: 3}
     volume: 0.5
     pitch: 1
-    loop: 1
+    loop: 0
     source: {fileID: 0}
   - name: ShadowAttack
     clip: {fileID: 8300000, guid: d24d6c5163c436b45a91ec11b369546b, type: 3}
     volume: 0.5
     pitch: 1
-    loop: 1
+    loop: 0
     source: {fileID: 0}
   - name: YouShallNotPass
     clip: {fileID: 8300000, guid: d24d6c5163c436b45a91ec11b369546b, type: 3}
     volume: 0.5
     pitch: 1
-    loop: 1
+    loop: 0
     source: {fileID: 0}
   - name: YouCanGo
     clip: {fileID: 8300000, guid: d24d6c5163c436b45a91ec11b369546b, type: 3}
     volume: 0.5
     pitch: 1
-    loop: 1
+    loop: 0
     source: {fileID: 0}
   - name: CheckPointSound
-    clip: {fileID: 8300000, guid: d24d6c5163c436b45a91ec11b369546b, type: 3}
+    clip: {fileID: 8300000, guid: fb3ae7cb31f764b49b9dbd249f13f977, type: 3}
     volume: 0.5
     pitch: 1
-    loop: 1
+    loop: 0
     source: {fileID: 0}
 --- !u!114 &5137363670341825400
 MonoBehaviour:
