@@ -15,22 +15,13 @@ public class FallZone : MonoBehaviour
                 controller.enabled = false;
             }
 
-            // Определяем новую позицию для игрока в зависимости от чекпоинта
-            Vector3 playerNewPosition;
-            if (CheckpointManager.checkpoint == 0)
+            // Определяем новую позицию для игрока из последнего сохранённого чекпоинта
+            Vector3 playerNewPosition = CheckpointManager.lastCheckpointPosition;
+
+            // Если позиция не была установлена (например, если чекпоинт 0 не был активирован), устанавливаем дефолтное значение
+            if (playerNewPosition == Vector3.zero)
             {
-                playerNewPosition = new Vector3(-4, 0, 7);
-                Debug.Log("Teleported to checkpoint 0.");
-            }
-            else if (CheckpointManager.checkpoint == 1)
-            {
-                playerNewPosition = new Vector3(-7, 0, 4);
-                Debug.Log("Teleported to checkpoint 1.");
-            }
-            else
-            {
-                // Если чекпоинт неизвестен, выходим
-                return;
+                playerNewPosition = new Vector3(-4, 0, 7); // Позиция по умолчанию
             }
 
             // Телепортируем игрока
