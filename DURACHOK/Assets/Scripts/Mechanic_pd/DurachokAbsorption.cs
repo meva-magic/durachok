@@ -7,14 +7,14 @@ public class DurachokAbsorption : MonoBehaviour
     public Transform player;
     public float arcHeight = 2f;
     public float invisibleDuration = 5f;
-    public float activationRadius = 2f; // Радиус активации способности
+    public float activationRadius = 2f; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public float timeLeft;
     private Vector3 originalScale;
     private Collider durachokCollider;
 
     public bool isInvisible = false;
     public float respawnRadius = 2f;
-    public bool canHide = true; // Флаг для блокировки способности
+    public bool canHide = true; // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
     public static DurachokAbsorption instance;
 
@@ -31,7 +31,7 @@ public class DurachokAbsorption : MonoBehaviour
 
     void Update()
     {
-        // Проверка нажатия Enter, расстояния и доступности способности
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ Enter, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (canHide && Input.GetKeyDown(KeyCode.Return) && Vector3.Distance(transform.position, player.position) <= activationRadius)
         {
             StartCoroutine(AbsorbIntoPlayer());
@@ -40,11 +40,13 @@ public class DurachokAbsorption : MonoBehaviour
 
     public IEnumerator AbsorbIntoPlayer()
     {
-        if (!canHide) yield break; // Прерываем, если способность недоступна
+        AudioManager.instance.Play("SwalowSound");
 
-        canHide = false; // Блокируем активацию до выпрыгивания обратно
+        if (!canHide) yield break; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-        // Отключаем коллайдер и делаем невидимым
+        canHide = false; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (durachokCollider != null)
         {
             durachokCollider.enabled = false;
@@ -56,7 +58,7 @@ public class DurachokAbsorption : MonoBehaviour
         Vector3 startScale = transform.localScale;
         Vector3 endScale = Vector3.zero;
 
-        // Анимация прыжка по дуге и уменьшение размера
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         float time = 0f;
         while (time < 1f)
         {
@@ -68,7 +70,7 @@ public class DurachokAbsorption : MonoBehaviour
             yield return null;
         }
 
-        // Включаем таймер и удерживаем позицию
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         timer.SetActive(true);
         timeLeft = invisibleDuration;
         float invisibleTime = 0f;
@@ -80,7 +82,7 @@ public class DurachokAbsorption : MonoBehaviour
             yield return null;
         }
 
-        // Позиция для вылета
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         Vector3 randomOffset = new Vector3(
             Random.Range(-respawnRadius, respawnRadius),
             0f,
@@ -88,7 +90,7 @@ public class DurachokAbsorption : MonoBehaviour
         );
         Vector3 spawnPosition = player.position + randomOffset;
 
-        // Вылет по дуге и восстановление размера
+        // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         time = 0f;
         transform.localScale = endScale;
         while (time < 1f)
@@ -101,14 +103,17 @@ public class DurachokAbsorption : MonoBehaviour
             yield return null;
         }
 
-        // Включаем коллайдер и отключаем таймер
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         if (durachokCollider != null)
         {
             durachokCollider.enabled = true;
         }
         timer.SetActive(false);
         isInvisible = false;
-        canHide = true; // Разрешаем активацию
+        canHide = true; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+
+
+        AudioManager.instance.Play("SpitSound");
     }
 
     public bool IsInvisible()

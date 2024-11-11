@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
-    public Transform[] points;  // Точки, между которыми движется платформа
-    public float maxSpeed = 2f;  // Максимальная скорость платформы
-    public float minSpeed = 0.5f;  // Минимальная скорость платформы при приближении к точке
-    public float slowdownDistance = 1f;  // Дистанция, на которой начнется замедление
+    public Transform[] points;  // пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    public float maxSpeed = 2f;  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    public float minSpeed = 0.5f;  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ
+    public float slowdownDistance = 1f;  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
     private int targetPointIndex = 0;
     private bool isMoving = false;
@@ -20,8 +20,16 @@ public class MovingPlatform : MonoBehaviour
 
     public void ToggleMovement()
     {
-        // Переключаем состояние движения
         isMoving = !isMoving;
+
+        if (isMoving)
+        {
+            AudioManager.instance.Play("PlatformMove");
+        }
+        else
+        {
+            AudioManager.instance.Play("PlatformStop");
+        }
     }
 
     private void MoveTowardsTarget()
@@ -31,7 +39,7 @@ public class MovingPlatform : MonoBehaviour
         Transform targetPoint = points[targetPointIndex];
         float distanceToTarget = Vector3.Distance(transform.position, targetPoint.position);
 
-        // Рассчитываем текущую скорость на основе расстояния до цели
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ
         float speed = Mathf.Lerp(minSpeed, maxSpeed, distanceToTarget / slowdownDistance);
         speed = Mathf.Clamp(speed, minSpeed, maxSpeed);
 
@@ -39,7 +47,7 @@ public class MovingPlatform : MonoBehaviour
 
         if (distanceToTarget < 0.1f)
         {
-            // Переход к следующей точке
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
             targetPointIndex = (targetPointIndex + 1) % points.Length;
         }
     }

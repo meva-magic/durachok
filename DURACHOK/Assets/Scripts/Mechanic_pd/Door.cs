@@ -6,22 +6,24 @@ public class Door : MonoBehaviour
     public Transform leftDoor;
     public Transform rightDoor;
     public PressurePlate plate;
-    public DoorButton button;  // Ссылка на DoorButton
-    public float openDistance = 1.5f;  // Насколько двери должны раздвинуться
+    public DoorButton button;  // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ DoorButton
+    public float openDistance = 1.5f;  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public float openSpeed = 2f;
     private bool isOpened = false;
 
     public void Update()
     {
-        // Проверка на наличие ссылки
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         if (plate == null || button == null)
         {
-            Debug.LogWarning("Door: Отсутствует ссылка на plate или button.");
+            Debug.LogWarning("Door: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ plate пїЅпїЅпїЅ button.");
             return;
         }
 
         if (!isOpened && plate.IsActivated() && button.IsActivated())
         {
+            AudioManager.instance.Play("DoorOpen");
+            
             StartCoroutine(OpenDoors());
             isOpened = true;
         }

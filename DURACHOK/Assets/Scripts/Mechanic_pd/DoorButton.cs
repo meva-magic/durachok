@@ -2,15 +2,17 @@ using UnityEngine;
 
 public class DoorButton : MonoBehaviour
 {
-    public Door door;  // Ссылка на дверь
-    private bool isActivated = false;  // Статус активации
+    public Door door;  // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    private bool isActivated = false;  // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
     public void ToggleDoor()
     {
-        isActivated = !isActivated;  // Переключаем статус активации
+        isActivated = !isActivated;  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (door != null)
         {
-            // Обновляем состояние двери при активации/деактивации
+            AudioManager.instance.Play("LeverPress");
+            
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ/пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             door.Update();
         }
     }

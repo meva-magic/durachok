@@ -2,13 +2,15 @@ using UnityEngine;
 
 public class PlatformButton : MonoBehaviour
 {
-    public MovingPlatform platform;  // Ссылка на платформу
+    public MovingPlatform platform;  // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
     public void TogglePlatform()
     {
         if (platform != null)
         {
-            platform.ToggleMovement();  // Вызов переключения платформы
+            AudioManager.instance.Play("LeverPress");
+            
+            platform.ToggleMovement();  // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         }
     }
 }

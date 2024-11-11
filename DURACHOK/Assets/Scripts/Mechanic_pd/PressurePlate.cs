@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PressurePlate : MonoBehaviour
 {
-    public GameObject grid;  // Объект решетки, который будет опускаться
-    public float pressDepth = 0.1f;  // Глубина, на которую плита опускается
+    public GameObject grid;  // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    public float pressDepth = 0.1f;  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public float moveSpeed = 2f;
     private Vector3 initialPosition;
     private bool isActivated = false;
-    private int collidersInside = 0; // Счетчик объектов внутри триггера
+    private int collidersInside = 0; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
     private void Start()
     {
@@ -18,9 +18,11 @@ public class PressurePlate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        AudioManager.instance.Play("PlateOn");
+
         collidersInside++;
 
-        if (!isActivated) // Активируем плиту только при первом объекте
+        if (!isActivated) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         {
             isActivated = true;
             StartCoroutine(MovePlate(initialPosition - Vector3.up * pressDepth));
@@ -30,9 +32,11 @@ public class PressurePlate : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        AudioManager.instance.Play("PlateOn");
+        
         collidersInside--;
 
-        if (collidersInside <= 0) // Деактивируем плиту, когда внутри не осталось объектов
+        if (collidersInside <= 0) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         {
             isActivated = false;
             StartCoroutine(MovePlate(initialPosition));
@@ -54,7 +58,7 @@ public class PressurePlate : MonoBehaviour
         Collider gridCollider = grid.GetComponent<Collider>();
         if (gridCollider != null) gridCollider.enabled = false;
 
-        Vector3 targetPosition = grid.transform.position - Vector3.up * 2f;  // Опускаем на 2 метра
+        Vector3 targetPosition = grid.transform.position - Vector3.up * 2f;  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 2 пїЅпїЅпїЅпїЅпїЅ
         while (Vector3.Distance(grid.transform.position, targetPosition) > 0.01f)
         {
             grid.transform.position = Vector3.MoveTowards(grid.transform.position, targetPosition, moveSpeed * Time.deltaTime);
