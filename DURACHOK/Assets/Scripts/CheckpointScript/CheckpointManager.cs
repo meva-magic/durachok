@@ -2,26 +2,22 @@ using UnityEngine;
 
 public class CheckpointManager : MonoBehaviour
 {
-    public static int checkpoint = 0; // Текущий чекпоинт
-    public static Vector3 lastCheckpointPosition; // Позиция последнего чекпоинта
+    public static Vector3 lastCheckpointPosition = new Vector3(-4, 0, 7); // Начальная позиция чекпоинта
 
-    // Метод для установки чекпоинта и его позиции
+    // Установка чекпоинта и обновление позиции
     public static void SetCheckpoint(int checkpointNumber)
     {
-        checkpoint = checkpointNumber;
-
-        // В зависимости от номера чекпоинта устанавливаем позицию
-        if (checkpointNumber == 0)
+        switch (checkpointNumber)
         {
-            lastCheckpointPosition = new Vector3(-4, 0, 7);
-        }
-        else if (checkpointNumber == 1)
-        {
-            lastCheckpointPosition = new Vector3(-7, 0, 4);
-        }
-        else
-        {
-            lastCheckpointPosition = Vector3.zero; // Можно добавить для других чекпоинтов
+            case 0:
+                lastCheckpointPosition = new Vector3(-4, 0, 7);
+                break;
+            case 1:
+                lastCheckpointPosition = new Vector3(-7, 0, 4);
+                break;
+            default:
+                lastCheckpointPosition = Vector3.zero; // Позиция по умолчанию
+                break;
         }
     }
 }

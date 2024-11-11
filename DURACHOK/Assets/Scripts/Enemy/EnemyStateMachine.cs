@@ -4,15 +4,9 @@ using System.Collections.Generic;
 
 public class EnemyStateMachine : MonoBehaviour
 {
-    public enum State
-    {
-        Patrol,
-        Chase,
-        Absorb
-    }
+    public enum State { Patrol, Chase, Absorb }
 
     public State currentState;
-    private Transform target;
     public List<Transform> patrolPoints;
     public float patrolSpeed = 2f;
     public float chaseSpeed = 4f;
@@ -20,21 +14,22 @@ public class EnemyStateMachine : MonoBehaviour
     public float sightRange = 5f;
     public float fieldOfViewAngle = 110f;
     public float rotationSpeed = 5f;
-    public LayerMask playerLayer;
-
     public float pullSpeed = 2f;
-    public float pullThreshold = 1f;
+    public float deathMenuDelay = 1.5f;
 
+    private Transform target;
     private DurachokAbsorption durachokScript;
-    private int currentPatrolIndex = 0;
     private Collider durachokCollider;
+    private int currentPatrolIndex = 0;
+    private Vector3 originalScale;
 
     void Start()
     {
-        currentState = State.Patrol;
         target = GameObject.FindGameObjectWithTag("Durachok").transform;
         durachokScript = target.GetComponent<DurachokAbsorption>();
         durachokCollider = target.GetComponent<Collider>();
+        originalScale = target.localScale;
+        currentState = State.Patrol;
     }
 
     void Update()
@@ -44,11 +39,9 @@ public class EnemyStateMachine : MonoBehaviour
             case State.Patrol:
                 Patrol();
                 break;
-
             case State.Chase:
                 Chase();
                 break;
-
             case State.Absorb:
                 StartCoroutine(AbsorbDurachok());
                 break;
@@ -60,14 +53,7 @@ public class EnemyStateMachine : MonoBehaviour
         if (patrolPoints.Count == 0) return;
 
         Transform currentPoint = patrolPoints[currentPatrolIndex];
-        transform.position = Vector3.MoveTowards(transform.position, currentPoint.position, patrolSpeed * Time.deltaTime);
-
-        if (transform.position != currentPoint.position)
-        {
-            Vector3 directionToMove = currentPoint.position - transform.position;
-            directionToMove.y = 0;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(directionToMove), rotationSpeed * Time.deltaTime);
-        }
+        MoveTowards(currentPoint.position, patrolSpeed);
 
         if (Vector3.Distance(transform.position, currentPoint.position) < 0.1f)
         {
@@ -82,38 +68,30 @@ public class EnemyStateMachine : MonoBehaviour
 
     void Chase()
     {
-        if (durachokScript.IsInvisible()) // Если Дурочек невидим, возвращаемся к патрулю
+        if (durachokScript.IsInvisible())
         {
             currentState = State.Patrol;
             return;
         }
 
-        transform.position = Vector3.MoveTowards(transform.position, target.position, chaseSpeed * Time.deltaTime);
-
-        Vector3 directionToDurachok = target.position - transform.position;
-        directionToDurachok.y = 0;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(directionToDurachok), rotationSpeed * Time.deltaTime);
+        MoveTowards(target.position, chaseSpeed);
 
         if (Vector3.Distance(transform.position, target.position) < attackRange)
         {
-            durachokScript.enabled = false; // Отключаем способность следования за игроком
+            durachokScript.enabled = false;
             currentState = State.Absorb;
         }
     }
 
     IEnumerator AbsorbDurachok()
     {
-        // Отключаем коллайдер Дурочка и готовим его для поглощения
-        if (durachokCollider != null)
-        {
-            durachokCollider.enabled = false;
-        }
+        if (durachokCollider != null) durachokCollider.enabled = false;
 
         Vector3 startScale = target.localScale;
-        Vector3 endScale = Vector3.zero;
+        Vector3 endScale = startScale * 0.5f;
+        Vector3 targetPosition = transform.position;
 
         float time = 0f;
-        Vector3 targetPosition = transform.position;
         while (time < 1f)
         {
             target.localScale = Vector3.Lerp(startScale, endScale, time);
@@ -122,35 +100,73 @@ public class EnemyStateMachine : MonoBehaviour
             yield return null;
         }
 
-        target.gameObject.SetActive(false);
-        Debug.Log("Durachok absorbed! Respawn menu triggered.");
-        UIManager.instance.EnabmeDeathMenu();
+        yield return new WaitForSeconds(deathMenuDelay);
 
+        TeleportPlayerAndDurachok();
+
+        currentState = State.Patrol;
+        StartCoroutine(RestoreDurachok());
+    }
+
+    private void TeleportPlayerAndDurachok()
+    {
+        Vector3 playerNewPosition = CheckpointManager.lastCheckpointPosition;
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            CharacterController controller = player.GetComponent<CharacterController>();
+            if (controller != null) controller.enabled = false;
+            player.transform.position = playerNewPosition;
+            if (controller != null) controller.enabled = true;
+        }
+
+        if (target != null)
+        {
+            target.position = playerNewPosition + new Vector3(1, 0, 0);
+            Debug.Log("Durachok teleported near the player.");
+        }
+
+        UIManager.instance.EnabmeDeathMenu();
+    }
+
+    IEnumerator RestoreDurachok()
+    {
+        float time = 0f;
+        while (time < 1f)
+        {
+            target.localScale = Vector3.Lerp(target.localScale, originalScale, time);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        if (durachokCollider != null) durachokCollider.enabled = true;
+        durachokScript.enabled = true;
     }
 
     bool CanSeeDurachok()
     {
         Vector3 directionToDurachok = target.position - transform.position;
-        float distanceToDurachok = directionToDurachok.magnitude;
+        if (directionToDurachok.magnitude > sightRange) return false;
 
-        if (distanceToDurachok <= sightRange)
+        float angleToDurachok = Vector3.Angle(transform.forward, directionToDurachok);
+        if (angleToDurachok > fieldOfViewAngle / 2) return false;
+
+        if (Physics.Raycast(transform.position, directionToDurachok.normalized, out RaycastHit hit, sightRange))
         {
-            float angleToDurachok = Vector3.Angle(transform.forward, directionToDurachok);
-
-            if (angleToDurachok <= fieldOfViewAngle / 2)
-            {
-                RaycastHit hit;
-                // Используем Raycast с проверкой на наличие препятствий
-                if (Physics.Raycast(transform.position, directionToDurachok.normalized, out hit, sightRange))
-                {
-                    // Проверяем, что именно Дурочек является первой пересеченной целью
-                    if (hit.transform == target)
-                    {
-                        return true;
-                    }
-                }
-            }
+            return hit.transform == target;
         }
+
         return false;
+    }
+
+    void MoveTowards(Vector3 destination, float speed)
+    {
+        transform.position = Vector3.MoveTowards(transform.position, destination, speed * Time.deltaTime);
+        Vector3 direction = destination - transform.position;
+        if (direction != Vector3.zero)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotationSpeed * Time.deltaTime);
+        }
     }
 }
