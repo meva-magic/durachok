@@ -124,7 +124,8 @@ public class EnemyStateMachine : MonoBehaviour
         }
 
         target.gameObject.SetActive(false);
-        Debug.Log("Durachok absorbed! Respawn menu triggered."); 
+        Debug.Log("Durachok absorbed! Respawn menu triggered.");
+        UIManager.instance.EnabmeDeathMenu();
     }
 
     bool CanSeeDurachok()

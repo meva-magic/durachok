@@ -3,17 +3,24 @@ using UnityEngine;
 public class IsometricCamera : MonoBehaviour
 {
     [SerializeField] private Transform player;
-    [SerializeField] private Vector3 offset = new Vector3(10, 10, -10); 
     [SerializeField] private float smoothTime = 0.3f;
 
     private Vector3 currentVelocity = Vector3.zero;
+    private Vector3 initialCameraPosition;
+
+    private void Start()
+    {
+        initialCameraPosition = transform.position - player.position;
+    }
 
     private void LateUpdate()
     {
-        if (player == null) return; // Проверка, что игрок установлен
+        if (player == null) return;
+        Vector3 targetPosition = player.position + initialCameraPosition;
 
-        Vector3 targetPosition = player.position + offset;
-
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref currentVelocity, smoothTime);
+        if ((targetPosition - transform.position).sqrMagnitude > 0.001f)
+        {
+            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref currentVelocity, smoothTime);
+        }
     }
 }
