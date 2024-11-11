@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float turnSpeed = 1.5f;
     [SerializeField] private float damping = 1.5f;
     [SerializeField] private float gravity = -9.81f;  // Сила гравитации
-    [SerializeField] private float jumpHeight = 2f;   // Высота прыжка
     [SerializeField] private CharacterController controller;
 
     private Vector3 movementVector;
