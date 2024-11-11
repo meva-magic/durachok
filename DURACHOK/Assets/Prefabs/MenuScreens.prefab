@@ -232,13 +232,13 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 4ef49fe5a3a113e4aa9e837e566665d4, type: 3}
     volume: 0.9
     pitch: 1
-    loop: 1
+    loop: 0
     source: {fileID: 0}
   - name: PlateOn
     clip: {fileID: 8300000, guid: cc83c3ce308e2f646804148d730e23c3, type: 3}
     volume: 0.9
     pitch: 1
-    loop: 1
+    loop: 0
     source: {fileID: 0}
   - name: PlateOff
     clip: {fileID: 8300000, guid: 69d80b3b9b9e4744ca17cf87703a6ec8, type: 3}

@@ -26,9 +26,9 @@ public class MovingPlatform : MonoBehaviour
         {
             AudioManager.instance.Play("PlatformMove");
         }
-        else
+        else if (!isMoving)
         {
-            AudioManager.instance.Play("PlatformStop");
+            AudioManager.instance.Stop("PlatformMove");
         }
     }
 

@@ -1,12 +1,28 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
+
 
 public class MenuButtons : MonoBehaviour
 {
     public Button startButton;
     public Button exitButton;
 
+
+    void Awake()
+    {
+        // Find all EventSystems in the scene
+        EventSystem[] eventSystems = FindObjectsOfType<EventSystem>();
+
+        // If there's more than one, destroy any extra ones
+        if (eventSystems.Length > 1)
+        {
+            for (int i = 1; i < eventSystems.Length; i++)
+            {
+                Destroy(eventSystems[i].gameObject);
+            }
+        }
+    }
 
     void Start()
     {
