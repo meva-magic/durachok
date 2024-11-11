@@ -26,16 +26,6 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject); // If instance already exists, destroy this duplicate
         }
     }
-
-    private void EnsureEventSystem()
-    {
-        if (FindObjectOfType<EventSystem>() == null)
-        {
-            GameObject eventSystem = new GameObject("EventSystem");
-            eventSystem.AddComponent<EventSystem>();
-            eventSystem.AddComponent<StandaloneInputModule>(); // Add the required input module
-        }
-    }
     
     private void Start()
     {
@@ -84,6 +74,20 @@ public class UIManager : MonoBehaviour
     }
 
     public void DisableDeathMenu()
+    {
+        deathMenu.SetActive(false);
+
+        SceneMusic.instance.PlayLevelMusic();
+    }
+
+    public void EnableWinMenu()
+    {
+        deathMenu.SetActive(true);
+
+        SceneMusic.instance.PlayMenuMusic();
+    }
+
+    public void DisableWinMenu()
     {
         deathMenu.SetActive(false);
 

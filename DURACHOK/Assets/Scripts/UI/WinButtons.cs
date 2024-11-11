@@ -22,6 +22,6 @@ public class WinButtons : MonoBehaviour
     private void OnMenuButtonClick()
     {
         UIManager.instance.EnableMainMenu();
-        UIManager.instance.DisableDeathMenu();
+        UIManager.instance.DisableWinMenu();
     }
 }
