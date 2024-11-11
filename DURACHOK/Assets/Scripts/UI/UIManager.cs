@@ -18,12 +18,12 @@ public class UIManager : MonoBehaviour
     {
          if (instance == null)
         {
-            instance = this; // Set the instance to this object
-            DontDestroyOnLoad(gameObject); // Prevent this object from being destroyed on scene load
+            instance = this; 
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject); // If instance already exists, destroy this duplicate
+            Destroy(gameObject);
         }
     }
     

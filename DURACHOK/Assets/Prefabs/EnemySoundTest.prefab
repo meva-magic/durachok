@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1943177088857657545}
-  - component: {fileID: 8915586993819525431}
   m_Layer: 0
   m_Name: EnemySoundTest
   m_TagString: Untagged
@@ -32,25 +31,3 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8915586993819525431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5088240789844164348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe8626281dd03604cbd9d3444372cc0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  idleSounds:
-  - {fileID: 8300000, guid: d98a5b9dcc5d649419b9464599a90846, type: 3}
-  - {fileID: 8300000, guid: 1d0d77516f287a648876207af3f7c76f, type: 3}
-  - {fileID: 8300000, guid: 1b5b2fca17d5ad44d9ff4c4473605677, type: 3}
-  - {fileID: 8300000, guid: 7104d9efc4d12d3498fc198b9a06d1a4, type: 3}
-  - {fileID: 8300000, guid: a1f3f0079b359794995d22dde51cad93, type: 3}
-  chaseSounds: []
-  soundDistanceThreshold: 7
-  maxVolumeDistance: 3
-  minVolumeDistance: 7

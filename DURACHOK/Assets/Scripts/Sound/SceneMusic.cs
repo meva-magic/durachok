@@ -13,7 +13,7 @@ public class SceneMusic : MonoBehaviour
     
     private void Start()
     {
-        AudioManager.instance.Play("MenuMusic");
+        PlayMenuMusic();
     }
 
     public void PlayLevelMusic()

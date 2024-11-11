@@ -17,6 +17,7 @@ public class DeathButtons : MonoBehaviour
     private void OnRestartButtonClick()
     {
         UIManager.instance.RestartScene();
+        UIManager.instance.DisableDeathMenu();
     }
 
     private void OnMenuButtonClick()
