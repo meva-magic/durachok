@@ -5,9 +5,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float playerSpeed = 2.5f;
     [SerializeField] private float turnSpeed = 1.5f;
     [SerializeField] private float damping = 1.5f;
+    [SerializeField] private float gravity = -9.81f;  // Сила гравитации
+    [SerializeField] private float jumpHeight = 2f;   // Высота прыжка
     [SerializeField] private CharacterController controller;
 
     private Vector3 movementVector;
+    private Vector3 velocity;  // Вертикальная скорость
+    private bool isGrounded;
     private Transform cameraTransform;
     public static PlayerController instance;
 
@@ -27,6 +31,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         GetInputAndMovement();
+        ApplyGravity();
         MovePlayer();
     }
 
@@ -57,8 +62,26 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void ApplyGravity()
+    {
+        isGrounded = controller.isGrounded;  // Проверяем, на земле ли персонаж
+
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;  // Когда персонаж на земле, сбрасываем вертикальную скорость
+        }
+
+        // Применяем гравитацию
+        if (!isGrounded)
+        {
+            velocity.y += gravity * Time.deltaTime;  // Падение
+        }
+    }
+
     private void MovePlayer()
     {
-        controller.Move(movementVector * Time.deltaTime);
+        // Двигаем персонажа, учитывая горизонтальное и вертикальное движение
+        Vector3 finalMovement = movementVector + velocity;
+        controller.Move(finalMovement * Time.deltaTime);
     }
 }
