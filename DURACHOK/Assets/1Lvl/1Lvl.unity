@@ -9683,6 +9683,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3045268074073173938, guid: 3387ddf11a936ef48adabeea4751bde4, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 6572406985897076880, guid: 3387ddf11a936ef48adabeea4751bde4, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
