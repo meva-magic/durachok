@@ -31,6 +31,8 @@ public class FallingPlatform : MonoBehaviour
 
     IEnumerator StartFalling()
     {
+        AudioManager.instance.Play("LeverPress");
+        
         isFalling = true;
 
         // Ждем заданную задержку перед началом падения

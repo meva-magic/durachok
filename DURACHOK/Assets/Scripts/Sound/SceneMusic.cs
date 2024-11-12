@@ -20,6 +20,7 @@ public class SceneMusic : MonoBehaviour
     {
         AudioManager.instance.Stop("MenuMusic");
         AudioManager.instance.Play("LevelMusic");
+        AudioManager.instance.Play("Embient");
     }
 
     public void PlayMenuMusic()
