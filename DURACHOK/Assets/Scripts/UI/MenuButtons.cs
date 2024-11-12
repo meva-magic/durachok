@@ -1,13 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-
+#if UNITY_EDITOR
+using UnityEditor; // Include for Editor-specific code
+#endif
 
 public class MenuButtons : MonoBehaviour
 {
     public Button startButton;
     public Button exitButton;
-
 
     void Awake()
     {
@@ -37,5 +38,13 @@ public class MenuButtons : MonoBehaviour
     }
 
     private void OnExitButtonClick()
-    {}
+    {
+        // Quit the game in a build
+        Application.Quit();
+
+        // If running in the Unity Editor, stop playing the scene
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#endif
+    }
 }
