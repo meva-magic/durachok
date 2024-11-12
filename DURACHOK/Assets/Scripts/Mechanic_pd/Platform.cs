@@ -2,28 +2,27 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
-    public Transform pointA; // Начальная точка
-    public Transform pointB; // Конечная точка
-    public float speed = 2f; // Скорость движения платформы
-    public float activationDistance = 5f; // Расстояние, на котором платформа начнёт двигаться
-    private bool isMoving = false; // Статус движения платформы
-    private Transform player; // Ссылка на игрока
+    public Transform pointA; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    public Transform pointB; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    public float speed = 2f; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    public float activationDistance = 5f; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    private bool isMoving = false; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    private Transform player; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
     void Start()
     {
-        player = GameObject.FindWithTag("Player").transform; // Находим игрока по тегу
+        player = GameObject.FindWithTag("Player").transform; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ
     }
 
     void Update()
     {
-        // Если игрок близко, платформа начинает двигаться
         if (Vector3.Distance(transform.position, player.position) <= activationDistance)
         {
             isMoving = true;
         }
         else
         {
-            isMoving = false; // Если игрок слишком далеко, платформа перестает двигаться
+            isMoving = false;
         }
 
         if (isMoving)
@@ -32,13 +31,25 @@ public class Platform : MonoBehaviour
         }
     }
 
+    private void SoundPlay()
+    {
+        if (isMoving)
+        {
+            AudioManager.instance.Play("PlatformMove");
+        }
+        else if (!isMoving)
+        {
+            AudioManager.instance.Stop("PlatformMove");
+        }
+    }
+
     void MovePlatform()
     {
-        // Двигаем платформу между точками
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         float step = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, pointB.position, step);
 
-        // Когда платформа достигнет точки B, она будет двигаться в точку A
+        // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ B, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ A
         if (Vector3.Distance(transform.position, pointB.position) < 0.1f)
         {
             Transform temp = pointA;

@@ -70,6 +70,7 @@ public class UIManager : MonoBehaviour
     {
         deathMenu.SetActive(true);
 
+        AudioManager.instance.Play("LooseSound");
         SceneMusic.instance.PlayMenuMusic();
     }
 
@@ -83,7 +84,7 @@ public class UIManager : MonoBehaviour
     public void EnableWinMenu()
     {
         deathMenu.SetActive(true);
-
+        AudioManager.instance.Play("WinSound");
         SceneMusic.instance.PlayMenuMusic();
     }
 
