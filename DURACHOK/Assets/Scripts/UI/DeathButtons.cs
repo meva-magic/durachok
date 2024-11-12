@@ -17,12 +17,12 @@ public class DeathButtons : MonoBehaviour
     private void OnRestartButtonClick()
     {
         //UIManager.instance.RestartScene();
-        UIManager.instance.DisableDeathMenu();
+        UIManager.instance.DisabmeDeathMenu();
     }
 
     private void OnMenuButtonClick()
     {
         UIManager.instance.EnableMainMenu();
-        UIManager.instance.DisableDeathMenu();
+        UIManager.instance.DisabmeDeathMenu();
     }
 }

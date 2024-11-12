@@ -16,9 +16,9 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-         if (instance == null)
+        if (instance == null)
         {
-            instance = this; 
+            instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -26,22 +26,18 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
-    private void Start()
-    {
-        //EnableMainMenu();
-    }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if(!mainMenu.activeSelf || !deathMenu.activeSelf || !winMenu.activeSelf)
-            {EnablePauseMenu();}
+            if (!mainMenu.activeSelf && !deathMenu.activeSelf && !winMenu.activeSelf)
+            {
+                EnablePauseMenu();
+            }
         }
     }
 
-    
     private void LockCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -55,59 +51,61 @@ public class UIManager : MonoBehaviour
     public void EnableMainMenu()
     {
         mainMenu.SetActive(true);
-
+        PlayerController.instance.isMovementAllowed = false;  // Блокировка движения
+         Debug.Log("Movement disabled");
         SceneMusic.instance.PlayMenuMusic();
     }
 
     public void DisableMainMenu()
     {
         mainMenu.SetActive(false);
-
+        PlayerController.instance.isMovementAllowed = true;   // Разблокировка движения
         SceneMusic.instance.PlayLevelMusic();
     }
 
     public void EnabmeDeathMenu()
     {
         deathMenu.SetActive(true);
-
+        PlayerController.instance.isMovementAllowed = false;
         AudioManager.instance.Play("LooseSound");
         SceneMusic.instance.PlayMenuMusic();
     }
 
-    public void DisableDeathMenu()
+    public void DisabmeDeathMenu()
     {
         deathMenu.SetActive(false);
-
+        PlayerController.instance.isMovementAllowed = true;
         SceneMusic.instance.PlayLevelMusic();
     }
 
     public void EnableWinMenu()
     {
         winMenu.SetActive(true);
+        PlayerController.instance.isMovementAllowed = false;
         AudioManager.instance.Play("WinSound");
         SceneMusic.instance.PlayMenuMusic();
     }
 
     public void DisableWinMenu()
     {
-        deathMenu.SetActive(false);
-
+        winMenu.SetActive(false);
+        PlayerController.instance.isMovementAllowed = true;
         SceneMusic.instance.PlayLevelMusic();
     }
 
     public void EnablePauseMenu()
     {
         pauseMenu.SetActive(true);
+        PlayerController.instance.isMovementAllowed = false;
         Time.timeScale = 0;
-
         SceneMusic.instance.PlayMenuMusic();
     }
 
     public void DisablePauseMenu()
     {
         pauseMenu.SetActive(false);
+        PlayerController.instance.isMovementAllowed = true;
         Time.timeScale = 1;
-
         SceneMusic.instance.PlayLevelMusic();
     }
 
