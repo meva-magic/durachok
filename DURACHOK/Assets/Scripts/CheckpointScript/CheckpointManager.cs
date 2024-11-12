@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CheckpointManager : MonoBehaviour
 {
-    public static Vector3 lastCheckpointPosition = new Vector3(-4, 0, 7); // Начальная позиция чекпоинта
+    public static Vector3 lastCheckpointPosition = new Vector3(3, 1, -2); // Начальная позиция чекпоинта
 
     // Установка чекпоинта и обновление позиции
     public static void SetCheckpoint(int checkpointNumber)
@@ -10,10 +10,13 @@ public class CheckpointManager : MonoBehaviour
         switch (checkpointNumber)
         {
             case 0:
-                lastCheckpointPosition = new Vector3(-4, 0, 7);
+                lastCheckpointPosition = new Vector3(3, 1, -2);
                 break;
             case 1:
-                lastCheckpointPosition = new Vector3(-7, 0, 4);
+                lastCheckpointPosition = new Vector3(-4, 1, -2);
+                break;
+            case 2:
+                lastCheckpointPosition = new Vector3(-28, 1, -2);
                 break;
             default:
                 lastCheckpointPosition = Vector3.zero; // Позиция по умолчанию
