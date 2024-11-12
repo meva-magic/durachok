@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 5291677468021682644}
   m_Layer: 3
   m_Name: Durachok
-  m_TagString: Player
+  m_TagString: Durachok
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,7 +152,7 @@ Transform:
   m_GameObject: {fileID: 8451240417205603437}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 3.0452971, y: 0.71, z: -1.3256884}
+  m_LocalPosition: {x: -1.1, y: 0.698, z: -4.49}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0f9dec47f2d4964bb6043b37fd9c453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 8075951513372935565, guid: 3387ddf11a936ef48adabeea4751bde4, type: 3}
+  player: {fileID: 0}
   followDistance: 0.22
   heightOffset: 0.7
   smoothSpeed: 3.75
@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: {fileID: 4076871110702589714, guid: 2c8b56598b1c8f14fb128774a14e71bb, type: 3}
-  player: {fileID: 8075951513372935565, guid: 3387ddf11a936ef48adabeea4751bde4, type: 3}
+  player: {fileID: 0}
   arcHeight: 2
   invisibleDuration: 5
   activationRadius: 2

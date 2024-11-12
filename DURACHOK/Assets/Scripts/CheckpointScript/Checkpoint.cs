@@ -6,7 +6,7 @@ public class Checkpoint : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             CheckpointManager.SetCheckpoint(checkpointNumber); // Устанавливаем новый чекпоинт
         }
