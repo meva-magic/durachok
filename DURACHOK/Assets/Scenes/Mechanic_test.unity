@@ -1551,10 +1551,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 3045268074073173938, guid: 3387ddf11a936ef48adabeea4751bde4, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 6572406985897076880, guid: 3387ddf11a936ef48adabeea4751bde4, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1622,7 +1618,7 @@ PrefabInstance:
       objectReference: {fileID: 778744486}
     - target: {fileID: 6851245360292378345, guid: 68f8bfab60a528a4da41b0148f2cd3be, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.1
+      value: -5.32
       objectReference: {fileID: 0}
     - target: {fileID: 6851245360292378345, guid: 68f8bfab60a528a4da41b0148f2cd3be, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1630,7 +1626,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6851245360292378345, guid: 68f8bfab60a528a4da41b0148f2cd3be, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.14
+      value: -5.13
       objectReference: {fileID: 0}
     - target: {fileID: 6851245360292378345, guid: 68f8bfab60a528a4da41b0148f2cd3be, type: 3}
       propertyPath: m_LocalRotation.w
