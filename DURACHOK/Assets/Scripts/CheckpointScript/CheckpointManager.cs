@@ -16,7 +16,7 @@ public class CheckpointManager : MonoBehaviour
                 lastCheckpointPosition = new Vector3(-4, 1, -2);
                 break;
             case 2:
-                lastCheckpointPosition = new Vector3(-28, 1, -2);
+                lastCheckpointPosition = new Vector3(-29, 1, -2);
                 break;
             default:
                 lastCheckpointPosition = Vector3.zero; // Позиция по умолчанию
