@@ -9,7 +9,7 @@ public class PlatformButton : MonoBehaviour
         if (platform != null)
         {
             AudioManager.instance.Play("LeverPress");
-            
+
             platform.ToggleMovement();  // ����� ������������ ���������
         }
     }
